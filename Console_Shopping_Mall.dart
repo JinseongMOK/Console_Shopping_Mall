@@ -3,7 +3,7 @@ import 'dart:io';
 void main() {
   // 메뉴
   Set<String> menu = {
-    '[1] 상품 목록 보기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기 / [4] 프로그램 종료'
+    '[1] 상품 목록 보기 [1-1] 상품 추가하기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기 / [4] 프로그램 종료'
   };
 
   // 상품 목록
@@ -34,9 +34,21 @@ void main() {
       case '1': // 상품 목록 보기
         print('상품 목록:');
         product.forEach((name, price) {
-          print('$name: ${price}원');
+          print('${name}: ${price}원');
         });
         break;
+      case '1-1':
+        print('추가 할 상품명을 입력해 주세요.');
+        String? newProductName = stdin.readLineSync();
+        print('추가 할 상품의 가격을 입력해 주세요.');
+        int newProductPrice = int.parse(stdin.readLineSync()!);
+        // product에 상품 및 가격 추가
+        if (newProductName != null) {
+          product[newProductName] = newProductPrice;
+          print('${newProductName}: ${newProductPrice}원이 상품 목록에 추가되었습니다.');
+        } else {
+          print('상품 이름이 입력되지 않았습니다.');
+        }
       case '2': // 장바구니에 상품 추가
         // 상품명 입력
         print('상품 이름을 입력해 주세요.');
@@ -76,7 +88,7 @@ void main() {
         // 장바구니에 담긴 수량의 합
         if (janbaguni.isNotEmpty) {
           int totalNum = janbaguni.values.reduce((a, b) => a + b);
-          print('총 주문 개수: $totalNum');
+          print('총 주문 개수: ${totalNum}');
         } else {
           print('장바구니가 비어 있습니다.');
         }
