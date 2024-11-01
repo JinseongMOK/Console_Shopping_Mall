@@ -38,14 +38,21 @@ void main() {
         });
         break;
       case '2': // 장바구니에 상품 추가
+        // 상품명 입력
         print('상품 이름을 입력해 주세요.');
         String? productName = stdin.readLineSync();
-        print('상품 개수를 입력해 주세요.');
-
+        if (!product.containsKey(productName)) {
+          print('준비된 상품이 없습니다.');
+          break;
+        }
+        // 수량 입력
         if (productName != null) {
+          print('상품 개수를 입력해 주세요.');
           print('수량을 입력하세요:');
           int productNumber = int.parse(stdin.readLineSync()!);
-
+          if (productNumber == 0) {
+            print('1개 이상의 수량을 입력해주세요.');
+          }
           janbaguni[productName] = productNumber;
           print('장바구니에 추가되었습니다');
         } else {
@@ -78,17 +85,18 @@ void main() {
           int totalPrice = selectPrice.reduce((a, b) => a + b);
           print('장바구니에 담긴 상품의 총 가격: ${totalPrice}');
         }
+        // 장바구니 초기화
         print('장바구니를 초기화 하고 싶으면 6, 초기화면으로 돌아가려면 6 을 제외한 숫자를 눌러주세요.');
         int resetJangbaguni = int.parse(stdin.readLineSync()!);
         if (resetJangbaguni == 6) {
           janbaguni.clear();
-          print(janbaguni);
+          print('장바구니가 초기화 되었습니다.');
         }
         break;
       case '4': // 프로그램 종료
         print('프로그램을 종료하시겠습니까? 종료를 원하시면 5 를 입력해주세요.');
         String? realExit = stdin.readLineSync();
-
+        // 프로그램 종료여부 확인
         if (realExit == '5') {
           print('프로그램을 종료합니다.');
           return;
